@@ -8,9 +8,9 @@ data = {k: v.split(',')
         for k, v in (line.strip().split('\t') for line in tsv)}
 chars = set(c for n in data.keys() for c in n)
 chars_joyo = chars & set(cjkinfo.joyo)
-initials_joyo = set(n[0] for n in data.keys()) & set(cjkinfo.joyo)
-finals_joyo = set(n[1]
-                  for n in data.keys() if len(n) == 2) & set(cjkinfo.joyo)
+initials_joyo = list(set(n[0] for n in data.keys()) & set(cjkinfo.joyo))
+finals_joyo = list(set(n[1]
+                       for n in data.keys() if len(n) == 2) & set(cjkinfo.joyo))
 readings_initial = defaultdict(set)
 readings_final = defaultdict(set)
 for n, rs in data.items():
@@ -31,8 +31,7 @@ def main():
         finals_joyo), '(%d)' % len(finals_joyo))
     print('Readings:', readings_initial, readings_final)
     for _ in range(0, 10):
-        new_gengo, reading = gen(
-            list(initials_joyo), list(finals_joyo), data.keys())
+        new_gengo, reading = generate()
         print(new_gengo, reading)
 
 
@@ -43,7 +42,11 @@ def romaji_initial(hira):
 romaji_blacklist = 'msth'
 
 
-def gen(initials, finals, gold):
+def generate():
+    return do_gen(initials_joyo, finals_joyo, data.keys())
+
+
+def do_gen(initials, finals, gold):
     while True:
         i = random.choice(initials)
         f = random.choice(finals)

@@ -1,1 +1,7 @@
-/__pycache__
+.env*
+/dist
+/work
+credentials.json
+*.pyc
+*.egg-info
+/vendor
