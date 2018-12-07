@@ -60,7 +60,7 @@ $(ENV_RELEASE):
 .PHONY: zip
 zip: $(PAYLOAD)
 
-$(PAYLOAD): *.py credentials.json nengo.tsv $(BLANK_IMAGE) $(FONT_OTF) | $(ENV_RELEASE) dist
+$(PAYLOAD): *.py credentials.json *.tsv $(BLANK_IMAGE) $(FONT_OTF) | $(ENV_RELEASE) dist
 	rm -rf $(@)
 	zip $(@) $(^) -x \*.pyc
 	cd $(ENV_RELEASE)/lib/python3.*/site-packages; \

@@ -2,23 +2,35 @@ from collections import defaultdict
 import random
 import cjkinfo
 
-with open('nengo.tsv') as infile:
-    tsv = infile.readlines()
-data = {k: v.split(',')
-        for k, v in (line.strip().split('\t') for line in tsv)}
-chars = set(c for n in data.keys() for c in n)
+
+def parse_tsv(path):
+    with open(path) as infile:
+        tsv = infile.readlines()
+    return {fields[0]: fields[1].split(',')
+            for fields in (line.strip().split('\t') for line in tsv)}
+
+
+nengo_data = parse_tsv('nengo.tsv')
+nengo_unused_data = parse_tsv('nengo-unused.tsv')
+chars = set(c for data in [nengo_data, nengo_unused_data]
+            for n in data.keys() for c in n)
 chars_joyo = chars & set(cjkinfo.joyo)
-initials_joyo = list(set(n[0] for n in data.keys()) & set(cjkinfo.joyo))
-finals_joyo = list(set(n[1]
-                       for n in data.keys() if len(n) == 2) & set(cjkinfo.joyo))
+initials = set(n[0] for data in [nengo_data, nengo_unused_data]
+               for n in data.keys())
+initials_joyo = list(initials & set(cjkinfo.joyo))
+finals = set(n[1] for data in [nengo_data, nengo_unused_data]
+             for n in data.keys() if len(n) == 2)
+finals_joyo = list(finals & set(cjkinfo.joyo))
 readings_initial = defaultdict(set)
 readings_final = defaultdict(set)
-for n, rs in data.items():
-    if len(n) == 2:
-        for r in rs:
-            rleft, rright = r.split(' ')
-            readings_initial[n[0]].add(rleft)
-            readings_final[n[1]].add(rright)
+for data in [nengo_data, nengo_unused_data]:
+    for n, rs in data.items():
+        if len(n) == 2:
+            for r in rs:
+                print(r)
+                rleft, rright = r.split(' ')
+                readings_initial[n[0]].add(rleft)
+                readings_final[n[1]].add(rright)
 
 
 def main():
@@ -42,19 +54,25 @@ def romaji_initial(hira):
 romaji_blacklist = 'msth'
 
 
+def get_reading(initial, final):
+    i = random.choice(list(readings_initial[initial]))
+    f = random.choice(list(readings_final[final]))
+    # Hack to fix up 半濁音
+    if f[0] in u'ぱぴぷぺぽ' and i[-1] != u'ん':
+        f = u'はひふへほ'[u'ぱぴぷぺぽ'.index(f[0])] + f[1:]
+    if f[0] in u'はひふへほ' and i[-1] == u'ん':
+        f = u'ぱぴぷぺぽ'[u'はひふへほ'.index(f[0])] + f[1:]
+    return i + f
+
+
 def generate():
-    return do_gen(initials_joyo, finals_joyo, data.keys())
-
-
-def do_gen(initials, finals, gold):
     while True:
-        i = random.choice(initials)
-        f = random.choice(finals)
+        i = random.choice(initials_joyo)
+        f = random.choice(finals_joyo)
         if i != f:
             cand = i + f
-            reading = random.choice(
-                list(readings_initial[i])) + random.choice(list(readings_final[f]))
-            if cand not in gold and romaji_initial(reading) not in romaji_blacklist:
+            reading = get_reading(i, f)
+            if cand not in nengo_data and romaji_initial(reading) not in romaji_blacklist:
                 return cand, reading
 
 
