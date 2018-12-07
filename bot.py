@@ -5,6 +5,7 @@ import tweepy
 import json
 import nengo
 import announce
+import random
 
 creds_file = 'credentials.json'
 
@@ -25,11 +26,34 @@ auth.set_access_token(credentials['AccessToken'],
 api = tweepy.API(auth)
 
 
+def tiny_chance():
+    return random.random() < 0.01
+
+
+def get_announce_emoji_img(num):
+    import boto3
+    s3 = boto3.client('s3')
+    emoji_file = io.BytesIO()
+    s3.download_fileobj('nengobot', f'160x160/{num}.png', emoji_file)
+    return announce.generate_emoji(emoji_file)
+
+
+def to_png(img):
+    buf = io.BytesIO()
+    img.save(buf, format='png')
+    return buf
+
+
 def do_tweet(event, context):
-    ng, reading = nengo.generate()
-    status = u'%s（%s）' % (ng, reading)
-    imagefile = io.BytesIO()
-    announce_img = announce.generate(*ng)
-    announce_img.save(imagefile, format='png')
-    api.update_with_media('announce.png', status=status, file=imagefile)
-    return ng, reading
+    if tiny_chance():
+        status = u'???'
+        emoji_num = random.randint(1, 2514)
+        img = get_announce_emoji_img(emoji_num)
+    else:
+        ng, reading = nengo.generate()
+        status = u'%s（%s）' % (ng, reading)
+        img = announce.generate(*ng)
+    imagefile = to_png(img)
+    result = api.update_with_media(
+        'announce.png', status=status, file=imagefile)
+    return result

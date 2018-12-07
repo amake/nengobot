@@ -16,9 +16,23 @@ def generate(line1, line2):
     return Image.alpha_composite(base, rot)
 
 
+def generate_emoji(emoji_file):
+    base = Image.open('./work/blank.png').convert('RGBA')
+    emoji = Image.open(emoji_file).convert('RGBA')
+    txt = Image.new('RGBA', base.size, transparent)
+    txt.paste(emoji, (94, 60))
+    rot = txt.rotate(4, resample=Image.BILINEAR)
+    return Image.alpha_composite(base, rot)
+
+
 def main():
     import sys
-    img = generate(*sys.argv[1])
+    import random
+    import os
+    if sys.argv[1:]:
+        img = generate(*sys.argv[1])
+        img.show()
+    img = generate_emoji(f'./work/160x160/{random.randint(1, 2514)}.png')
     img.show()
 
 
