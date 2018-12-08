@@ -32,8 +32,10 @@ $(EMOJI_DIR): $(EMOJI_EXTRACTOR) | work
 $(EMOJI_EXTRACTOR): | vendor
 	cd $(@D); curl -O https://raw.githubusercontent.com/tmm1/emoji-extractor/master/$(@F)
 
+ASSETS := $(BLANK_IMAGE) $(FONT_OTF) $(EMOJI_DIR)
+
 .PHONY: assets
-assets: $(BLANK_IMAGE) $(FONT_OTF) $(EMOJI_DIR)
+assets: $(ASSETS)
 
 .PHONY: clean
 clean:
@@ -50,7 +52,7 @@ $(ENV_DEV):
 ENV_RELEASE := .env_release
 
 .PHONY: test
-test: | $(ENV_DEV)
+test: | $(ENV_DEV) $(ASSETS)
 	$(ENV_DEV)/bin/python nengo.py
 	$(ENV_DEV)/bin/python announce.py 試験
 
