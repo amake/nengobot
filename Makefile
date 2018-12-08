@@ -30,7 +30,7 @@ $(EMOJI_DIR): $(EMOJI_EXTRACTOR) | work
 	cd work; ruby $(PWD)/$(<)
 
 $(EMOJI_EXTRACTOR): | vendor
-	cd $(@D); curl -O https://raw.githubusercontent.com/tmm1/emoji-extractor/master/$(@F)
+	cd $(@D); curl -O https://raw.githubusercontent.com/tmm1/emoji-extractor/2ceed50ccc65e1da29511314cbf0535bd60a7552/$(@F)
 
 ASSETS := $(BLANK_IMAGE) $(FONT_OTF) $(EMOJI_DIR)
 
