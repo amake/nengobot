@@ -37,6 +37,11 @@ def romaji_initial(hira):
     return cjkinfo.hira2romaji[hira[0]][0]
 
 
+def map_kana(from_str, to_str, c):
+    idx = from_str.index(c)
+    return to_str[idx]
+
+
 ha_gyo = u'はひふへほ'
 pa_gyo = u'ぱぴぷぺぽ'
 
@@ -46,9 +51,9 @@ def get_reading(initial, final):
     f = random.choice(list(readings_final[final]))
     # Hack to fix up 半濁音
     if f[0] in pa_gyo and i[-1] != u'ん':
-        f = ha_gyo[pa_gyo.index(f[0])] + f[1:]
+        f = map_kana(pa_gyo, ha_gyo, f[0]) + f[1:]
     if f[0] in ha_gyo and i[-1] == u'ん':
-        f = pa_gyo[ha_gyo.index(f[0])] + f[1:]
+        f = map_kana(ha_gyo, pa_gyo, f[0]) + f[1:]
     return i + f
 
 
