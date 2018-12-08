@@ -20,8 +20,8 @@ def generate_emoji(emoji_file):
     base = Image.open('./work/blank.png').convert('RGBA')
     emoji = Image.open(emoji_file).convert('RGBA')
     txt = Image.new('RGBA', base.size, transparent)
-    txt.paste(emoji, (94, 60))
-    rot = txt.rotate(4, resample=Image.BILINEAR)
+    txt.paste(emoji, (97, 60))
+    rot = txt.rotate(5, resample=Image.BILINEAR)
     return Image.alpha_composite(base, rot)
 
 
