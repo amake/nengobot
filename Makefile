@@ -48,6 +48,7 @@ ENV_DEV := .env_dev
 $(ENV_DEV):
 	virtualenv $(@)
 	$(@)/bin/pip install -e .
+	$(@)/bin/pip install boto3
 
 ENV_RELEASE := .env_release
 
