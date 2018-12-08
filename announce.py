@@ -32,7 +32,8 @@ def main():
     if sys.argv[1:]:
         img = generate(*sys.argv[1])
         img.show()
-    img = generate_emoji(f'./work/160x160/{random.randint(1, 2514)}.png')
+    img = generate_emoji(
+        f'./work/images/160x160/{random.randint(1, 2514)}.png')
     img.show()
 
 

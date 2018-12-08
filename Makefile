@@ -23,8 +23,17 @@ vendor/$(FONT_ZIP): | vendor
 .PHONY: font
 font: $(FONT_OTF)
 
+EMOJI_DIR := work/images/160x160
+EMOJI_EXTRACTOR := vendor/emoji_extractor.rb
+
+$(EMOJI_DIR): $(EMOJI_EXTRACTOR) | work
+	cd work; ruby $(PWD)/$(<)
+
+$(EMOJI_EXTRACTOR): | vendor
+	cd $(@D); curl -O https://raw.githubusercontent.com/tmm1/emoji-extractor/master/$(@F)
+
 .PHONY: assets
-assets: $(BLANK_IMAGE) $(FONT_OTF)
+assets: $(BLANK_IMAGE) $(FONT_OTF) $(EMOJI_DIR)
 
 .PHONY: clean
 clean:
