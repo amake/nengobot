@@ -27,7 +27,6 @@ for data in [nengo_data, nengo_unused_data]:
     for n, rs in data.items():
         if len(n) == 2:
             for r in rs:
-                print(r)
                 rleft, rright = r.split(' ')
                 readings_initial[n[0]].add(rleft)
                 readings_final[n[1]].add(rright)
