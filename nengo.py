@@ -37,6 +37,8 @@ def romaji_initial(hira):
     return cjkinfo.hira2romaji[hira[0]][0]
 
 
+ha_gyo = u'はひふへほ'
+pa_gyo = u'ぱぴぷぺぽ'
 romaji_blacklist = 'msth'
 
 
@@ -44,10 +46,10 @@ def get_reading(initial, final):
     i = random.choice(list(readings_initial[initial]))
     f = random.choice(list(readings_final[final]))
     # Hack to fix up 半濁音
-    if f[0] in u'ぱぴぷぺぽ' and i[-1] != u'ん':
-        f = u'はひふへほ'[u'ぱぴぷぺぽ'.index(f[0])] + f[1:]
-    if f[0] in u'はひふへほ' and i[-1] == u'ん':
-        f = u'ぱぴぷぺぽ'[u'はひふへほ'.index(f[0])] + f[1:]
+    if f[0] in pa_gyo and i[-1] != u'ん':
+        f = ha_gyo[pa_gyo.index(f[0])] + f[1:]
+    if f[0] in ha_gyo and i[-1] == u'ん':
+        f = pa_gyo[ha_gyo.index(f[0])] + f[1:]
     return i + f
 
 
