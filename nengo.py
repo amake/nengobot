@@ -33,20 +33,6 @@ for data in [nengo_data, nengo_unused_data]:
                 readings_final[n[1]].add(rright)
 
 
-def main():
-    print('All nengo:', ','.join(data.keys()), '(%d)' % len(data))
-    print('All chars:', ','.join(chars), '(%d)' % len(chars))
-    print('All chars (joyo):', ','.join(chars_joyo), '(%d)' % len(chars_joyo))
-    print('Initial chars (joyo):', ','.join(
-        initials_joyo), '(%d)' % len(initials_joyo))
-    print('Final chars (joyo):', ','.join(
-        finals_joyo), '(%d)' % len(finals_joyo))
-    print('Readings:', readings_initial, readings_final)
-    for _ in range(0, 10):
-        new_gengo, reading = generate()
-        print(new_gengo, reading)
-
-
 def romaji_initial(hira):
     return cjkinfo.hira2romaji[hira[0]][0]
 
@@ -74,6 +60,20 @@ def generate():
             reading = get_reading(i, f)
             if cand not in nengo_data and romaji_initial(reading) not in romaji_blacklist:
                 return cand, reading
+
+
+def main():
+    print('All nengo:', ','.join(data.keys()), '(%d)' % len(data))
+    print('All chars:', ','.join(chars), '(%d)' % len(chars))
+    print('All chars (joyo):', ','.join(chars_joyo), '(%d)' % len(chars_joyo))
+    print('Initial chars (joyo):', ','.join(
+        initials_joyo), '(%d)' % len(initials_joyo))
+    print('Final chars (joyo):', ','.join(
+        finals_joyo), '(%d)' % len(finals_joyo))
+    print('Readings:', readings_initial, readings_final)
+    for _ in range(0, 10):
+        new_gengo, reading = generate()
+        print(new_gengo, reading)
 
 
 if __name__ == '__main__':
