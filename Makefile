@@ -93,3 +93,9 @@ invoke:
 	aws $(AWS_ARGS) lambda invoke \
 		--function-name $(LAMBDA_NAME) \
 		/dev/null
+
+DRY_RUN := --dryrun
+
+.PHONY: deploy-emoji
+deploy-emoji: $(EMOJI_DIR)
+	aws $(AWS_ARGS) s3 sync $(DRY_RUN) $(<) s3://nengobot/$(<F)
