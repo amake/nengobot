@@ -56,4 +56,4 @@ def do_tweet(event, context):
     imagefile = to_png(img)
     result = api.update_with_media(
         'announce.png', status=status, file=imagefile)
-    return result
+    return result._json
