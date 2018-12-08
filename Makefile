@@ -10,15 +10,15 @@ BLANK_IMAGE := work/blank.png
 $(BLANK_IMAGE): img/after-heisei.svg | work
 	inkscape --export-png=$(@) --export-dpi 350 $(<)
 
-FONT_ZIP := UtsukushiMincho-FONT.zip
+FONT_ZIP := vendor/UtsukushiMincho-FONT.zip
 FONT_OTF := work/UtsukushiMincho-FONT/UtsukushiFONT.otf
 
-$(FONT_OTF): vendor/$(FONT_ZIP) | work
+$(FONT_OTF): $(FONT_ZIP) | work
 	cd work; unar $(PWD)/$(<)
 	touch $(@)
 
-vendor/$(FONT_ZIP): | vendor
-	cd $(@D); curl -O http://flop.sakura.ne.jp/font/fontdata/$(FONT_ZIP)
+$(FONT_ZIP): | vendor
+	cd $(@D); curl -O http://flop.sakura.ne.jp/font/fontdata/$(@F)
 
 .PHONY: font
 font: $(FONT_OTF)
