@@ -50,9 +50,9 @@ def get_reading(initial, final):
     i = random.choice(list(readings_initial[initial]))
     f = random.choice(list(readings_final[final]))
     # Hack to fix up 半濁音
-    if f[0] in pa_gyo and i[-1] != u'ん':
+    if f[0] in pa_gyo and i[-1] not in u'んっ':
         f = map_kana(pa_gyo, ha_gyo, f[0]) + f[1:]
-    if f[0] in ha_gyo and i[-1] == u'ん':
+    if f[0] in ha_gyo and i[-1] in u'んっ':
         f = map_kana(ha_gyo, pa_gyo, f[0]) + f[1:]
     return i + f
 
