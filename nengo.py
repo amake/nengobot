@@ -39,7 +39,6 @@ def romaji_initial(hira):
 
 ha_gyo = u'はひふへほ'
 pa_gyo = u'ぱぴぷぺぽ'
-romaji_blacklist = 'msth'
 
 
 def get_reading(initial, final):
@@ -51,6 +50,9 @@ def get_reading(initial, final):
     if f[0] in ha_gyo and i[-1] == u'ん':
         f = pa_gyo[ha_gyo.index(f[0])] + f[1:]
     return i + f
+
+
+romaji_blacklist = 'msth'
 
 
 def generate():
