@@ -27,7 +27,7 @@ api = tweepy.API(auth)
 
 
 def tiny_chance():
-    return random.random() < 0.01
+    return random.random() < 1/24
 
 
 def get_announce_emoji_img(num):
