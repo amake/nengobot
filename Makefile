@@ -50,8 +50,6 @@ $(ENV_DEV):
 	$(@)/bin/pip install -e .
 	$(@)/bin/pip install boto3
 
-ENV_RELEASE := .env_release
-
 .PHONY: test
 test: | $(ENV_DEV) $(ASSETS)
 	$(ENV_DEV)/bin/python nengo.py
@@ -62,6 +60,8 @@ test: | $(ENV_DEV) $(ASSETS)
 AWS_ARGS ?=
 LAMBDA_NAME := NengoBotTwitterBot
 PAYLOAD := dist/lambda-deploy.zip
+
+ENV_RELEASE := .env_release
 
 $(ENV_RELEASE):
 	docker run -v $(PWD):/work --rm \
