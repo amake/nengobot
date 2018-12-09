@@ -99,7 +99,8 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(-39.884041,-78.402763)"
-     style="display:inline">
+     style="display:inline"
+     sodipodi:insensitive="true">
     <image
        sodipodi:absref="/Users/amake/Code/nengo/img/heisei-announcement.jpg"
        xlink:href="heisei-announcement.jpg"
