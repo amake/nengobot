@@ -7,10 +7,16 @@ work vendor dist:
 
 BLANK_SVG := work/blank.svg
 BLANK_IMAGE := work/blank.png
+PARTY_SVG := work/party.svg
+PARTY_IMAGE := work/party.png
 
 $(BLANK_SVG): img/after-heisei.svg | work
 	python util/svg-image-embed.py $(<) | \
 		python util/svg-layers.py Background Blank > $(@)
+
+$(PARTY_SVG): img/after-heisei.svg | work
+	python util/svg-image-embed.py $(<) | \
+		python util/svg-layers.py Background Blank Party > $(@)
 
 %.png: %.svg
 	inkscape --export-png=$(@) --export-dpi 350 $(<)
