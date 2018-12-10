@@ -17,7 +17,7 @@ def generate(line1, line2):
 
 
 def generate_emoji(emoji_file):
-    base = Image.open('./work/blank.png').convert('RGBA')
+    base = Image.open('./work/party.png').convert('RGBA')
     emoji = Image.open(emoji_file).convert('RGBA')
     txt = Image.new('RGBA', base.size, transparent)
     txt.paste(emoji, (97, 60))
