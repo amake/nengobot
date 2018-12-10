@@ -9,6 +9,7 @@ BLANK_SVG := work/blank.svg
 BLANK_IMAGE := work/blank.png
 PARTY_SVG := work/party.svg
 PARTY_IMAGE := work/party.png
+IMAGES := $(BLANK_IMAGE) $(PARTY_IMAGE)
 
 $(BLANK_SVG): img/after-heisei.svg | work
 	python util/svg-image-embed.py $(<) | \
@@ -43,7 +44,7 @@ $(EMOJI_DIR): $(EMOJI_EXTRACTOR) | work
 $(EMOJI_EXTRACTOR): | vendor
 	cd $(@D); curl -O https://raw.githubusercontent.com/tmm1/emoji-extractor/2ceed50ccc65e1da29511314cbf0535bd60a7552/$(@F)
 
-ASSETS := $(BLANK_IMAGE) $(FONT_OTF) $(EMOJI_DIR)
+ASSETS := $(IMAGES) $(FONT_OTF) $(EMOJI_DIR)
 
 .PHONY: assets
 assets: $(ASSETS)
@@ -83,7 +84,7 @@ $(ENV_RELEASE):
 .PHONY: zip
 zip: $(PAYLOAD)
 
-$(PAYLOAD): *.py credentials.json *.tsv $(BLANK_IMAGE) $(FONT_OTF) | $(ENV_RELEASE) dist
+$(PAYLOAD): *.py credentials.json *.tsv $(IMAGES) $(FONT_OTF) | $(ENV_RELEASE) dist
 	rm -rf $(@)
 	zip $(@) $(^) -x \*.pyc
 	cd $(ENV_RELEASE)/lib/python3.*/site-packages; \
