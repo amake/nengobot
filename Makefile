@@ -5,9 +5,14 @@ SHELL := /bin/bash -O extglob
 work vendor dist:
 	mkdir -p $(@)
 
+BLANK_SVG := work/blank.svg
 BLANK_IMAGE := work/blank.png
 
-$(BLANK_IMAGE): img/after-heisei.svg | work
+$(BLANK_SVG): img/after-heisei.svg | work
+	python util/svg-image-embed.py $(<) | \
+		python util/svg-layers.py Background Blank > $(@)
+
+%.png: %.svg
 	inkscape --export-png=$(@) --export-dpi 350 $(<)
 
 FONT_ZIP := vendor/UtsukushiMincho-FONT.zip
