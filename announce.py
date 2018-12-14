@@ -4,15 +4,22 @@ transparent = (255, 255, 255, 0)
 black = (0, 0, 0, 255)
 
 
-def generate(line1, line2):
+def fit_frame(img):
+    return img.transform(img.size,
+                         method=Image.AFFINE,
+                         data=[1, -0.1, 0,
+                               0.05, 1, 0],
+                         resample=Image.BILINEAR)
+
+
+def generate(*lines):
     base = Image.open('./work/blank.png').convert('RGBA')
     txt = Image.new('RGBA', base.size, transparent)
     fnt = ImageFont.truetype(
         './work/UtsukushiMincho-FONT/UtsukushiFONT.otf', 80)
     d = ImageDraw.Draw(txt)
-    d.text((125, 60), line1, font=fnt, fill=black)
-    d.text((130, 140), line2, font=fnt, fill=black)
-    rot = txt.rotate(3, resample=Image.BILINEAR)
+    d.text((113, 72), '\n'.join(lines), font=fnt, fill=black)
+    rot = fit_frame(txt)
     return Image.alpha_composite(base, rot)
 
 
@@ -20,8 +27,8 @@ def generate_emoji(emoji_file):
     base = Image.open('./work/party.png').convert('RGBA')
     emoji = Image.open(emoji_file).convert('RGBA')
     txt = Image.new('RGBA', base.size, transparent)
-    txt.paste(emoji, (97, 60))
-    rot = txt.rotate(5, resample=Image.BILINEAR)
+    txt.paste(emoji, (75, 70))
+    rot = fit_frame(txt)
     return Image.alpha_composite(base, rot)
 
 
