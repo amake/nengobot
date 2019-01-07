@@ -386,6 +386,37 @@
   </g>
   <g
      inkscape:groupmode="layer"
+     id="layer6"
+     inkscape:label="April Fools">
+    <g
+       id="g4599"
+       transform="matrix(0.99773669,-0.0392991,0.11525543,0.99772873,-0.9331515,2.0953866)">
+      <text
+         id="text4589"
+         y="-1.2661428"
+         x="16.366682"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:52.91666412px;font-family:'Hiragino Mincho Pro';-inkscape-font-specification:'Hiragino Mincho Pro';text-align:start;letter-spacing:0px;word-spacing:0px;text-orientation:upright;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777767px;font-family:'Hiragino Mincho Pro';-inkscape-font-specification:'Hiragino Mincho Pro';text-align:start;writing-mode:tb-rl;text-orientation:upright;text-anchor:start;stroke-width:0.26458332px"
+           y="16.366682"
+           x="-1.2661428"
+           id="tspan4587"
+           sodipodi:role="line">四月一日</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:52.91666412px;font-family:'Hiragino Mincho Pro';-inkscape-font-specification:'Hiragino Mincho Pro';letter-spacing:0px;word-spacing:0px;writing-mode:tb-rl;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="11.43378"
+         y="2.616353"
+         id="text4593"><tspan
+           sodipodi:role="line"
+           id="tspan4591"
+           x="2.616353"
+           y="11.43378"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777767px;font-family:'Hiragino Mincho Pro';-inkscape-font-specification:'Hiragino Mincho Pro';writing-mode:tb-rl;stroke-width:0.26458332px">公開</tspan></text>
+    </g>
+  </g>
+  <g
+     inkscape:groupmode="layer"
      id="layer4"
      inkscape:label="U+32FF"
      style="display:none">
