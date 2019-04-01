@@ -57,3 +57,14 @@ def do_tweet(event, context):
     result = api.update_with_media(
         'announce.png', status=status, file=imagefile)
     return result._json
+
+
+if __name__ == '__main__':
+    import sys
+    ng, reading = str(sys.argv[1]), str(sys.argv[2])
+    status = u'%s（%s）' % (ng, reading)
+    img = announce.generate(*ng)
+    imagefile = to_png(img)
+    result = api.update_with_media(
+        'announce.png', status=status, file=imagefile)
+    print(result)
