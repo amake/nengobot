@@ -9,7 +9,8 @@ BLANK_SVG := work/blank.svg
 BLANK_IMAGE := work/blank.png
 PARTY_SVG := work/party.svg
 PARTY_IMAGE := work/party.png
-IMAGES := $(BLANK_IMAGE) $(PARTY_IMAGE)
+REIWA_IMAGE := work/reiwa.jpg
+IMAGES := $(BLANK_IMAGE) $(PARTY_IMAGE) $(REIWA_IMAGE)
 
 $(BLANK_SVG): img/after-heisei.svg | work
 	python util/svg-image-embed.py $(<) | \
@@ -18,6 +19,9 @@ $(BLANK_SVG): img/after-heisei.svg | work
 $(PARTY_SVG): img/after-heisei.svg | work
 	python util/svg-image-embed.py $(<) | \
 		python util/svg-layers.py Background Blank Party > $(@)
+
+$(REIWA_IMAGE): img/reiwa-announcement.jpg | work
+	cp $(<) $(@)
 
 %.png: %.svg
 	inkscape --export-png=$(@) --export-dpi 350 $(<)
